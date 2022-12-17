@@ -1,0 +1,41 @@
+//Create a folder for project:
+cd *project folder*
+
+
+//Start VM (I want linux, defined by jammy64)
+vagrant init ubuntu/jammy64
+vagrant up
+
+// Go into VM - note we can see it in VirtualBox and go in there, or use following command
+vagrant ssh
+
+// Explore
+// the following command shows that your project folder is shared in the VM
+
+ls /vagrant
+
+
+//Download Apache so that we can run a web server
+// update package and install the apache - need to "sudo" to give us admin rights. The apache to install can be seen at the top of the first search, based on http server
+apt search apache
+sudo apt update
+sudo apt install apache2
+
+//Test connection
+//localhost:80 is based on http being port 80
+// can use this for other sites eg curl -v http://example.com
+//https://everything.curl.dev/cmdline/options
+curl -v localhost:80
+
+
+// Set up networking
+// use following command to show you two IP addresses - one it refers to itself, and one it uses to identify to the network (the second is used to access the VM from the laptop)
+ip addr
+
+// VirtualBox blocks access by default
+// find vagrantfile and allow public part, makes machine appear as another device on the network
+// now when re-running "ip addr" it will give a website, showing success
+
+// feel free to play around and editing site, using following
+cd /var/www/html
+sudo nano index.html
